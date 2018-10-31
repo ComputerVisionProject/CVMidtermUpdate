@@ -2,7 +2,7 @@
 <html lang="en"><head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
-  <title>Computer Vision Class Project</title>
+  <title>Computer Vision Midterm Update</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -36,28 +36,31 @@ color: #FF9900;
 <div class="page-header">
 
 <!-- Title and Name -->
-<h1>The Computer Visionaries</h1>
+<h1>The Computer Visionaries: Midterm Update</h1>
 <span style="font-size: 20px; line-height: 1.5em;"><strong>Rishab Kaup, Karthik Praturu, Noah Sutter and Austen Schunk</strong></span><br>
 <span style="font-size: 18px; line-height: 1.5em;">Fall 2018 CS 4476 Computer Vision: Final Project</span><br>
 <span style="font-size: 18px; line-height: 1.5em;">Georgia Tech</span>
 <hr>
 
 <!-- Proposal -->
-<h2><u>Project Proposal</u></h3>
-<!--Problem statement: Clearly state the goal of your project.
-  When someone uses your system, what is the expected input to the system,
-  and what is the desired output?
+<h2><u>Abstract</u></h3>
+<!--One or two sentences on the motivation behind the problem you are
+solving. One or two sentences describing the approach you took.
+One or two sentences on the main result you obtained.-->
 
-Approach: Describe the technical approach you plan to employ.
+Style transfer is a method of transferring the style of an image, like a painting,
+to another image. This is useful for creating new types of computer generated
+artwork, and it can even be used for videos. Our approach focuses on exploring
+and optimizing the current state-of-the-art algorithms for style transfer,
+taking pieces of separate algorithms that currently exist, and utilizing the
+concepts they introduce to make the general algorithm run faster in the hopes
+of realizing real-time style transfer on everyday computers. We have found key
+areas for improvement in the most popular style transfer currently in use, shown input
+[1], through our experiments and propose a modified structure for faster performance.
 
-Experiments and results: Describe the experimental setup you will follow,
-which datasets you will use, which existing code you will exploit,
-what you will implement yourself, and what you would define as a success
-for the project. If you plan on collecting your own data,
-describe what data collection protocol you will follow.
-Provide a list of experiments you will perform.
-Describe what you expect the experiments to reveal,
-or what is uncertain about the potential outcomes.-->
+
+The final image has the same content as it originally did, but
+its texture and art style follow those of the style image.
 
 <!-- Problem Statement -->
 <h3>Problem Statement: Style Transfer</h3>
@@ -119,14 +122,7 @@ depends on how fast the algorithm executes, and we may have to come up with
 a different way to merge inconsistencies altogether.
 <br>
 <br>
-Relevant papers and articles:
-<br>
-<ol>
-  <li><a href = "https://arxiv.org/pdf/1508.06576v2.pdf" target="_blank">A Neural Algorithm of Artistic Style</a></li>
-  <li><a href = "https://arxiv.org/pdf/1603.08155.pdf" target="_blank">Perceptual Losses for Real-Time Style Transfer and Super-Resolution</a></li>
-  <li><a href = "https://arxiv.org/pdf/1604.08610.pdf" target="_blank">Artistic Style Transfer for Video</a></li>
-</ol>
-<br>
+
 
 <!-- Experiments and Results -->
 <h3>Experiment and Results</h3>
@@ -136,22 +132,22 @@ Relevant papers and articles:
    In the experiment, we will give the users/subjects pictures and videos, with ranging complexities, to have the style transferred from the original image/video to that of a given template. In this context, the complexity of an image can be viewed as "how busy is an image?" For example, a picture of a single fruit would be defined as less complex than a photo of a city street with lots of pedestrians and vehicles. The images we will use to train the transformation network will be from the Microsoft COCO dataset as described in [2]. We will be hand selecting the images used as style images based on whether or not it is visually appealing and of a distinct, recognizable style. Given the largely subjective nature of evaluating the quality of a style transfer, for each image we will ask, in a survey, for users/subjects to rate the style transfer on a scale of 1 to 5 for the following criteria.
   <h5>For both image and video</h5>
   <ul>
-    <li>How acceptable is the time taken for processing the style transfer 
+    <li>How acceptable is the time taken for processing the style transfer
     	<ul>
     		<li>5 being the most acceptable and 1 being the least acceptable</li>
     	</ul>
     </li>
-    <li>Overall quality of image produced 
+    <li>Overall quality of image produced
     	<ul>
     		<li>5 being the best quality and 1 being the worst quality</li>
     	</ul>
     </li>
-    <li>How related the style of the generated image is with the desired style 
+    <li>How related the style of the generated image is with the desired style
     	<ul>
     		<li>5 being the generated style completely matches the desired style and 1 being the generated style does not match the desired style at all</li>
     	</ul>
     </li>
-    <li>How related the content of the generated image is with the original 
+    <li>How related the content of the generated image is with the original
     	<ul>
     		<li>5 being the content of the generated image is completely related to the content of the original image and 1 being the content of the generated image is not related to the content of the original image</li>
     	</ul>
@@ -159,7 +155,7 @@ Relevant papers and articles:
   </ul>
   <h5>For only video</h5>
   <ul>
-    <li>Overall continuity of the video i.e. was the video skipping significantly between frames? not maintining a certain style? etc.. 
+    <li>Overall continuity of the video i.e. was the video skipping significantly between frames? not maintining a certain style? etc..
     	<ul>
     		<li>5 being perfect continuity and 1 being no  continuity</li>
     	</ul>
@@ -184,5 +180,13 @@ Experiments and results: Describe the experimental setup you will follow, which 
 </div>
 
 <br><br>
+
+Relevant papers and articles:
+<br>
+<ol>
+  <li><a href = "https://arxiv.org/pdf/1603.08155.pdf" target="_blank">Perceptual Losses for Real-Time Style Transfer and Super-Resolution</a></li>
+  <li><a href = "https://arxiv.org/pdf/1604.08610.pdf" target="_blank">Artistic Style Transfer for Video</a></li>
+</ol>
+<br>
 
 </body></html>
