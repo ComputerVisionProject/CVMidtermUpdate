@@ -42,7 +42,7 @@ color: #FF9900;
 <span style="font-size: 18px; line-height: 1.5em;">Georgia Tech</span>
 <hr>
 
-<!-- Proposal -->
+<!-- Midterm Update -->
 <h2><u>Abstract</u></h3>
 <!--One or two sentences on the motivation behind the problem you are
 solving. One or two sentences describing the approach you took.
@@ -53,29 +53,11 @@ to another image. This is useful for creating new types of computer generated
 artwork, and it can even be used for videos. Our approach focuses on exploring
 and optimizing the current state-of-the-art algorithms for style transfer,
 taking pieces of separate algorithms that currently exist, and utilizing the
-concepts they introduce to make the general algorithm run faster in the hopes
-of realizing real-time style transfer on everyday computers. We have found key
-areas for improvement in the most popular style transfer currently in use, shown input
-[1], through our experiments and propose a modified structure for faster performance.
-
-
-The final image has the same content as it originally did, but
-its texture and art style follow those of the style image.
-
-<!-- Problem Statement -->
-<h3>Problem Statement: Style Transfer</h3>
-
-For our project, we want to be able to transfer the style of an image, specifically a painting, to another image. Below is a specific list of goals or milestones we wish to accomplish. These goals are in order of how difficult we have judged them to be:
-<br><br>
-  <ul>
-    <li>Take in an input picture and convert it's style to a specific painting</li>
-    <li>Have a list of preselected paintings that one can choose from to apply it's style to an input image</li>
-    <li>Be able to convert both static images and videos to a specific painting style</li>
-    <li>Show a live video conversion of style from camera input from a computer</li>
-    <li>Implement the style transfer on an Android app, so the input can be any precaptured image/video</li>
-    <li>Show a live video conversion of style from camera input within the Android app</li>
-  </ul>
-<br>
+concepts they introduce to make the general algorithm run faster and more
+efficiently for use with videos on everyday computers. We have found key areas
+for improvement in the most popular style transfer algorithm currently in use,
+shown in [1], through our experiments and propose a modified structure for
+faster performance.
 
 <h4 style = "text-align: center">Examples of style transfer</h4>
 <div style = "text-align: center">
@@ -83,12 +65,30 @@ For our project, we want to be able to transfer the style of an image, specifica
   <img style = "width: 47%; height:100%" src= "images/style_transfer_ex1.gif">
 </div>
 
-<br>
-This general technique has been done before, as evidenced by the examples. However, there are not many apps that handle this functionality, and there are no apps that are able to do direct, live style transfer. We will be attempting to implement all of these goals, and hopefully succeeding in all including the last.
-<br><br>
+<h2><u>Introduction</u></h3>
+<!-- Motivation behind the problem you are solving, what applications it has,
+any brief background on the particular domain you are working in
+(if not regular RBG photographs), etc. If you are using a new way to solve an
+existing problem, briefly mention and describe the existing approaches and tell
+us how your approach is new. -->
 
-<!-- Approach -->
-<h3>Approach</h3>
+Style transfer algorithms produce very artistic and often seemingly imaginative
+outputs, making it a very popular way to filter images and generate abstract
+art. Tools, like the <a href = "https://deepdreamgenerator.com/" target="_blank">Deep Dream Generator</a>
+uses style transfer algorithms to generate visual content for consumer use or
+research purposes. Real-time style transfer can be used for augmented reality
+applications and videos by applying the transformation frame-by-frame, but this
+requires faster methods for determining how to transfer style.
+
+The final image has the same content as it originally did, but
+its texture and art style follow those of the style image.
+
+<h2><u>Approach</u></h3>
+<!--  Describe very clearly and systematically your approach to solve the problem.
+Tell us exactly what existing implementations you used to build your system.
+Tell us what obstacles you faced and how you addressed them. Justify any design
+ choices or judgment calls you made in your approach.-->
+
 Applying a style transfer involves making use of two images, one for its content and one for its style,
 and applying a texture to the content image that matches the style of the style image.
 This process generally involves tuning a Convolutional Neural Network (CNN) to minimize some combination of
