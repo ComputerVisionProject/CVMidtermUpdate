@@ -114,7 +114,35 @@ Tell us exactly what existing implementations you used to build your system.
 Tell us what obstacles you faced and how you addressed them. Justify any design
  choices or judgment calls you made in your approach.-->
 
-############### FILL ME IN ###############
+  We will be splitting our apporach into two parts. The first part will consist of attempting improving frame rates for CPU video style transfer. The second will seek to improve the quality of real-time video style transfer for GPU.
+  <br>
+  <h4>Part 1: CPU Improvements</h4>
+
+  Currently, when using the method provided in [1] the frame rate is ~0.6fps depending on the size of the image being transformed, which cannot really be considered "real-time" style transfer. We will attempt to improve this time using the following methods.
+  <br>
+  <br>
+
+  <!-- Decreasing parameters of Johnson et al. -->
+  First, there is the idea of training a more simplistic image transformation network than the one described in [1]. This will be performed based on the idea that a simpler network i.e. one with less parameters will take less computation time. An easy adjustment would be to increase the stride of the convolutions, but this can only be done to a certain limit at which the network vastly decreases in performance. Another option would be to arbitrarily decrease the number of layers, size of filters, or number of filters. While one may get lucky when randomly removing layers, a better idea is to remove model parameters in an informed manner. Removing parameters in this manner is called model compression and while there are many types of model compression, we will use the quantization and pruning technique described in [3].
+  <br>
+  <br>
+  <!-- Using different architecture proposed in  -->
+  The second idea is to use an architecture that is entirely different: Referenced in [2] I dont really understand this model, so someone else should talk about our approach to this 
+  <br>
+  ############# FINISH ME #############
+
+  <br>
+  <h4>Part 2: GPU Improvements</h4>
+
+  Contrary to real-time style transfer on a CPU, real-time style transfer on a GPU is more or less solved. As a result, The goal in this setting will be to reduce a sort of flickering effect that occurs as a result of temporal inconsistencies between frames. An example of this can be seen in the teaser figure in which one can basically identify the change of frame. The "video" comes as a result of applying the transformation network from [1] repeatedly on each frame. The main problem with this is there is no concept of consistency between frames. The can be solved by using adding a temporal loss with the style and content loss. This loss is one that enforces a penalty for changes between output frames. We will be implementing two models that attempt to use this idea of a temporal loss. The first is the model presented in [4] which passes the image at time t and t-1 into an image transformation network consecutively then uses the per pixel MSE(Mean-Squared-Error) of the image at time t and a function(tries to map the image from t-1 to t) of t-1. The model then calculates the style and content loss at time t in the same manner as [1], but now combines that spatial loss with this new temporal loss in order to update the network. The second model which we will implement is the one proposed in [5]. In this model, we use an encoder-decoder network rather than the conventional feed-forward convolutional neural network. The main difference between this network and the one in [4] is that the temporal loss will be computed on the features that are encoded by the encoder rather than on the generated image. 
+
+
+  <br>
+  ############# FINISH ME #############
+  <br>
+  <b>Note:</b> Across all proposed models above, there will be the general goal to sacriface small losses in performance by using a smaller model in order to increase fps. Additionally, the models specified in the GPU portion will also be tested for cpu performance but not the other way around.
+
+
 
 
 <!-- Experiments and Results -->
@@ -198,8 +226,14 @@ Tell us what obstacles you faced and how you addressed them. Justify any design
 Relevant papers and articles:
 <br>
 <ol>
-  <li><a href = "https://arxiv.org/pdf/1603.08155.pdf" target="_blank">Perceptual Losses for Real-Time Style Transfer and Super-Resolution</a></li>
-  <li><a href = "https://arxiv.org/pdf/1604.08610.pdf" target="_blank">Artistic Style Transfer for Video</a></li>
+  <li>Johnson et al. <a href = "https://arxiv.org/pdf/1603.08155.pdf" target="_blank">Perceptual Losses for Real-Time Style Transfer and Super-Resolution</a></li>
+  <li>Li et al. <a href = "https://arxiv.org/pdf/1604.08610.pdf" target="_blank">Artistic Style Transfer for Video</a></li>
+  <li>Cheng et al. <a href="https://arxiv.org/pdf/1710.09282.pdf">A Survey of Model Compression and Acceleration for Deep Neural Networks</a></li>
+  <li>Huang et al. <a href="http://openaccess.thecvf.com/content_cvpr_2017/papers/Huang_Real-Time_Neural_Style_CVPR_2017_paper.pdf">
+    Real-Time Neural Style Transfer for Videos
+  </a></li>
+  <li>Gao et al. <a href="https://arxiv.org/pdf/1807.01197.pdf">ReCoNet: Real-time Coherent Video StyleTransfer Network</a></li>
+  <li>Weinzaepfel et al. <a href="https://hal.inria.fr/hal-00873592/document">DeepFlow: Large displacement optical flow with deep matching</a></li>
 </ol>
 <br>
 
