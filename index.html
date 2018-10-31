@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <title>Computer Vision Class Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+<!-- Le styles -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<style>
+body {
+padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
+.vis {
+color: #3366CC;
+}
+.data {
+color: #FF9900;
+}
+</style>
+
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements --><!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body>
+<div class="container">
+<div class="page-header">
+
+<!-- Title and Name -->
+<h1>The Computer Visionaries</h1>
+<span style="font-size: 20px; line-height: 1.5em;"><strong>Rishab Kaup, Karthik Praturu, Noah Sutter and Austen Schunk</strong></span><br>
+<span style="font-size: 18px; line-height: 1.5em;">Fall 2018 CS 4476 Computer Vision: Final Project</span><br>
+<span style="font-size: 18px; line-height: 1.5em;">Georgia Tech</span>
+<hr>
+
+<!-- Proposal -->
+<h2><u>Project Proposal</u></h3>
+<!--Problem statement: Clearly state the goal of your project.
+  When someone uses your system, what is the expected input to the system,
+  and what is the desired output?
+
+Approach: Describe the technical approach you plan to employ.
+
+Experiments and results: Describe the experimental setup you will follow,
+which datasets you will use, which existing code you will exploit,
+what you will implement yourself, and what you would define as a success
+for the project. If you plan on collecting your own data,
+describe what data collection protocol you will follow.
+Provide a list of experiments you will perform.
+Describe what you expect the experiments to reveal,
+or what is uncertain about the potential outcomes.-->
+
+<!-- Problem Statement -->
+<h3>Problem Statement: Style Transfer</h3>
+
+For our project, we want to be able to transfer the style of an image, specifically a painting, to another image. Below is a specific list of goals or milestones we wish to accomplish. These goals are in order of how difficult we have judged them to be:
+<br><br>
+  <ul>
+    <li>Take in an input picture and convert it's style to a specific painting</li>
+    <li>Have a list of preselected paintings that one can choose from to apply it's style to an input image</li>
+    <li>Be able to convert both static images and videos to a specific painting style</li>
+    <li>Show a live video conversion of style from camera input from a computer</li>
+    <li>Implement the style transfer on an Android app, so the input can be any precaptured image/video</li>
+    <li>Show a live video conversion of style from camera input within the Android app</li>
+  </ul>
+<br>
+
+<h4 style = "text-align: center">Examples of style transfer</h4>
+<div style = "text-align: center">
+  <img style = "width: 46%; height:100%" src= "images/style_transfer_ex2.jpg">
+  <img style = "width: 47%; height:100%" src= "images/style_transfer_ex1.gif">
+</div>
+
+<br>
+This general technique has been done before, as evidenced by the examples. However, there are not many apps that handle this functionality, and there are no apps that are able to do direct, live style transfer. We will be attempting to implement all of these goals, and hopefully succeeding in all including the last.
+<br><br>
+
+<!-- Approach -->
+<h3>Approach</h3>
+Applying a style transfer involves making use of two images, one for its content and one for its style,
+and applying a texture to the content image that matches the style of the style image.
+This process generally involves tuning a Convolutional Neural Network (CNN) to minimize some combination of
+style loss and content loss, as can be seen in [1].
+However, optimizing this function to get good results can take a couple of hours with an
+everyday computer.
+Achieving our goals requires optimizing multiple parts of the general style transfer
+algorithm:
+
+<h4>Style Transfer for Images</h4>
+To achieve this goal, we plan on making use of the algorithm in [2] and adding
+a feature extraction/dimensionality reduction front-end to achieve faster runtimes:
+Their algorithm, running on a GTX Titan X GPU, takes at most 0.21s to converge,
+which will be much slower running on an average smartphone. The high level
+pipeline will look like the following:
+<br>
+<br>
+input image->feature extraction->image transform network-> CNN Loss Minimization Network
+<br>
+<br>
+We will make use of the image transformation network mentioned in the paper,
+and we will use the <a href="http://www.robots.ox.ac.uk/~vgg/research/very_deep/" target="_blank">VGG Network</a>
+as our loss minimization network, minimizing a linear combination of
+style loss and content loss as mentioned in [1].
+
+<h4>Style Transfer for Videos</h4>
+We plan on approaching this goal by treating it as an extension of the previous.
+Style transfer can be applied to each frame, and inconsistencies between frames
+can be smoothed out or penalized, as stated in [3]. Any optimizations we make
+depends on how fast the algorithm executes, and we may have to come up with
+a different way to merge inconsistencies altogether.
+<br>
+<br>
+Relevant papers and articles:
+<br>
+<ol>
+  <li><a href = "https://arxiv.org/pdf/1508.06576v2.pdf" target="_blank">A Neural Algorithm of Artistic Style</a></li>
+  <li><a href = "https://arxiv.org/pdf/1603.08155.pdf" target="_blank">Perceptual Losses for Real-Time Style Transfer and Super-Resolution</a></li>
+  <li><a href = "https://arxiv.org/pdf/1604.08610.pdf" target="_blank">Artistic Style Transfer for Video</a></li>
+</ol>
+<br>
+
+<!-- Experiments and Results -->
+<h3>Experiment and Results</h3>
+  This project can be viewed as two parts, the first is the actual creation of the style transfer application and the second is the experiment to test how well the application performed. In the creation of the application, we will be leveraging a the algorithms described in the papers/articles provided above ([1], [2], [3]) but we will be modifying our application as described in the Approach section.
+  <br>
+  <br>
+   In the experiment, we will give the users/subjects pictures and videos, with ranging complexities, to have the style transferred from the original image/video to that of a given template. In this context, the complexity of an image can be viewed as "how busy is an image?" For example, a picture of a single fruit would be defined as less complex than a photo of a city street with lots of pedestrians and vehicles. The images we will use to train the transformation network will be from the Microsoft COCO dataset as described in [2]. We will be hand selecting the images used as style images based on whether or not it is visually appealing and of a distinct, recognizable style. Given the largely subjective nature of evaluating the quality of a style transfer, for each image we will ask, in a survey, for users/subjects to rate the style transfer on a scale of 1 to 5 for the following criteria.
+  <h5>For both image and video</h5>
+  <ul>
+    <li>How acceptable is the time taken for processing the style transfer 
+    	<ul>
+    		<li>5 being the most acceptable and 1 being the least acceptable</li>
+    	</ul>
+    </li>
+    <li>Overall quality of image produced 
+    	<ul>
+    		<li>5 being the best quality and 1 being the worst quality</li>
+    	</ul>
+    </li>
+    <li>How related the style of the generated image is with the desired style 
+    	<ul>
+    		<li>5 being the generated style completely matches the desired style and 1 being the generated style does not match the desired style at all</li>
+    	</ul>
+    </li>
+    <li>How related the content of the generated image is with the original 
+    	<ul>
+    		<li>5 being the content of the generated image is completely related to the content of the original image and 1 being the content of the generated image is not related to the content of the original image</li>
+    	</ul>
+    </li>
+  </ul>
+  <h5>For only video</h5>
+  <ul>
+    <li>Overall continuity of the video i.e. was the video skipping significantly between frames? not maintining a certain style? etc.. 
+    	<ul>
+    		<li>5 being perfect continuity and 1 being no  continuity</li>
+    	</ul>
+    </li>
+  </ul>
+  Through these experiments we hope to learn the strengths and weakness of the different techniques and hopefully determine which is best in general for transferring a style onto an image or video. Overall, this experiment will be considered a success if we are able to implement an application that is able to perform real-time style transfer for videos and receive relatively good reviews from our users (an average of 3.5 or above in each section of the survey).
+<br>
+
+
+
+
+<!-- When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+<br>
+Experiments and results: Describe the experimental setup you will follow, which datasets you will use, which existing code you will exploit, what you will implement yourself, and what you would define as a success for the project. If you plan on collecting your own data, describe what data collection protocol you will follow. Provide a list of experiments you will perform. Describe what you expect the experiments to reveal, or what is uncertain about the potential outcomes.
+ -->
+  <hr>
+  <footer>
+  <p>© Rishab Kaup, Karthik Praturu, Noah Sutter and Austen Schunk</p>
+  </footer>
+</div>
+</div>
+
+<br><br>
+
+</body></html>
