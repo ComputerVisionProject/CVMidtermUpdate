@@ -100,8 +100,11 @@ ITN introduced in [1] involves fixing a style image and feeding through a large
 database of content images. The ITN introduced by Johnson et al. incorporates a
 convolutional neural network with multiple convolutional and pooling layers
 throughout; however, other modern implementations use different approaches.
-
-
+For example, the method introduced in [7] has an ITN that matches the mean
+and variance of intermediate features, and the ITN in [8] uses a network that
+attempts to minimize the difference of centered covariance between the loss
+network output and the combined style and content images.
+<br>
 ############# FINISH ME #############
 
 
@@ -127,14 +130,14 @@ Tell us what obstacles you faced and how you addressed them. Justify any design
   <br>
   <br>
   <!-- Using different architecture proposed in  -->
-  The second idea is to use an architecture that is entirely different: Referenced in [2] I dont really understand this model, so someone else should talk about our approach to this 
+  The second idea is to use an architecture that is entirely different: Referenced in [2] I dont really understand this model, so someone else should talk about our approach to this
   <br>
   ############# FINISH ME #############
 
   <br>
   <h4>Part 2: GPU Improvements</h4>
 
-  Contrary to real-time style transfer on a CPU, real-time style transfer on a GPU is more or less solved. As a result, The goal in this setting will be to reduce a sort of flickering effect that occurs as a result of temporal inconsistencies between frames. An example of this can be seen in the teaser figure in which one can basically identify the change of frame. The "video" comes as a result of applying the transformation network from [1] repeatedly on each frame. The main problem with this is there is no concept of consistency between frames. The can be solved by using adding a temporal loss with the style and content loss. This loss is one that enforces a penalty for changes between output frames. We will be implementing two models that attempt to use this idea of a temporal loss. The first is the model presented in [4] which passes the image at time t and t-1 into an image transformation network consecutively then uses the per pixel MSE(Mean-Squared-Error) of the image at time t and a function(tries to map the image from t-1 to t) of t-1. The model then calculates the style and content loss at time t in the same manner as [1], but now combines that spatial loss with this new temporal loss in order to update the network. The second model which we will implement is the one proposed in [5]. In this model, we use an encoder-decoder network rather than the conventional feed-forward convolutional neural network. The main difference between this network and the one in [4] is that the temporal loss will be computed on the features that are encoded by the encoder rather than on the generated image. 
+  Contrary to real-time style transfer on a CPU, real-time style transfer on a GPU is more or less solved. As a result, The goal in this setting will be to reduce a sort of flickering effect that occurs as a result of temporal inconsistencies between frames. An example of this can be seen in the teaser figure in which one can basically identify the change of frame. The "video" comes as a result of applying the transformation network from [1] repeatedly on each frame. The main problem with this is there is no concept of consistency between frames. The can be solved by using adding a temporal loss with the style and content loss. This loss is one that enforces a penalty for changes between output frames. We will be implementing two models that attempt to use this idea of a temporal loss. The first is the model presented in [4] which passes the image at time t and t-1 into an image transformation network consecutively then uses the per pixel MSE(Mean-Squared-Error) of the image at time t and a function(tries to map the image from t-1 to t) of t-1. The model then calculates the style and content loss at time t in the same manner as [1], but now combines that spatial loss with this new temporal loss in order to update the network. The second model which we will implement is the one proposed in [5]. In this model, we use an encoder-decoder network rather than the conventional feed-forward convolutional neural network. The main difference between this network and the one in [4] is that the temporal loss will be computed on the features that are encoded by the encoder rather than on the generated image.
 
 
   <br>
@@ -175,7 +178,7 @@ Tell us what obstacles you faced and how you addressed them. Justify any design
 
   ########### INSERT INFORMATION ABOUT WHY THIS IS SLOW AND BAD #############
 
-<h2><u>Future Goals</u></h2> 
+<h2><u>Future Goals</u></h2>
   <h3>Coding</h3>
   ############ INSERT GOALS FOR CODING (ENCODER/DECODER, VIDEO TRANSFER) ###############
   <h3>Experimentation</h3>
@@ -234,6 +237,8 @@ Relevant papers and articles:
   </a></li>
   <li>Gao et al. <a href="https://arxiv.org/pdf/1807.01197.pdf">ReCoNet: Real-time Coherent Video StyleTransfer Network</a></li>
   <li>Weinzaepfel et al. <a href="https://hal.inria.fr/hal-00873592/document">DeepFlow: Large displacement optical flow with deep matching</a></li>
+  <li>Huang et al. <a href="https://arxiv.org/pdf/1703.06868.pdf" >Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization</a></li>
+  <li>Li et al. <a href="https://arxiv.org/pdf/1808.04537v1.pdf">Learning Linear Transformations for Fast Arbitrary Style Transfer</a></li>
 </ol>
 <br>
 
