@@ -175,7 +175,7 @@ The second idea is to use an architecture that is entirely different: Referenced
 <!-- Experiments and Results -->
 <h2><u>Current Experiments and Results</u></h3>
   For this midterm update, we decided to focus on implementing and testing the current approach detailed in [1]. We trained a neural network from scratch
-  with this approach on the following images:
+  with this approach on the following style images, using the Microsoft COCO dataset as described in [2]:
   <br>
   <br>
 
@@ -203,38 +203,9 @@ The second idea is to use an architecture that is entirely different: Referenced
 
   This performance is not even close to the speeds that are needed for real time video transfer at an acceptable frame rate. Obviously larger images offered poorer conversion times, but even small 256x256 images averaged around ~1.5s, yielding a measly estimated 0.66 frames per second
 <br><br>
-<h2><u>Future Goals</u></h2>
-  <h3>Coding</h3>
-  There were two major issues that came with the current approach proposed by [1]. The first major issue was that for an image of size 256x256 it would only run at about 1fps. This is far too slow for real-time transfer needed for videos that typically run at around 30fps. We intend to pursue two avenues to attempt to solve this problem. One is to edit the size of the network through model compression or simply train on a smaller network. This decrease in size should result in faster runtimes. The other avenue is to use a technique described by Li et al in [8].   
-  
-  <br>
-  <br>
-  <div style = "text-align: center">
-    <img style = "width: 50%; height:100%" src= "images/arbitrary_method.png">
-  </div>
-  <br>
-  <br>
-  While this technique has been described in this paper it has not been replicated in any other papers that we can find, nor has the actual implementation been released to the public. Despite this our team believes that if we implement this network we should be able to speed up the time it takes to transform an image significantly. This is because the network described in [] is trained to produce a transformation matrix that is a result of two networks. One network for the content of the target and one for the style of the reference image. This network is much smaller and when run on the covariance of feature vectors instead of images results in quicker runtimes by removing extra layers and cutting out time consuming matrix operations that are inherent in Johnson et al’s method. The method proposed in [] should also speed up the time it takes to transfer a style to a video. This is because there are separate networks to compute the content and style portions of the transformation matrix, meaning that for a video the style portion would only need to be computed once as the style does not change speeding up the network significantly. 
-
-  The second problem with the approach proposed by Johnson et al in [1] is that while it may be able to run quick enough for real time style transfer with small enough images, it results in temporal inconsistencies or artifacts that flicker between frames. This means that while there might only be small changes from frame to frame in the original video, the transformation network might produce significantly varying styles from frame to frame. We plan to introduce two solutions to this problem. The first is a technique described in [4] by Huang et al which trains the style transformation network on both the current frame and the previous frame. It does this by computing both the content and style loss as in [1]'s method, but also by computing spatial and temporal loss that can be used to train the network to minimize inconsistencies between frames. 
-
-  <br>
-  <br>
-  <div style = "text-align: center">
-    <img style = "width: 50%; height:100%" src= "images/Huang_method.png">
-  </div>
-  <br>
-  <br>
-
-  The second solution to the flickering problem should also be able to be solved by the method proposed in [8]. By using the covariance of the feature vectors produced by the encoder to use as input to the Convolutional Neural Networks (CNNs)  the proposed method is able to preserve content affinity while maintaining its quick runtimes. 
-
-  We will be implementing the methods described above in order to try to both speed up the transformation process and to decrease the amount of flickering and artifacts that the current mehtod produces. Once we hace implemented them we will compare them in both runtime and desireability of results as produced by our user studies to determine the best method of real time style transfer.  
-
-  <br>
-  <br>
-  <h3>Experimentation</h3>
+<h2><u>Future Experimentation</u></h2>
   <h4>Quantitative Experimentation</h4>
-  The goals that we have set above will be tested in several different ways:
+  The goals that we have set in the approach section above will be tested in several different ways with quantitative results:
   <h5>For both image and video</h5>
   <ul>
     <li>Time trials for training on style images
@@ -259,7 +230,12 @@ The second idea is to use an architecture that is entirely different: Referenced
 
   <br>
   <h4>Qualitative Experimentation</h4>
-   In the future experiments, we will give the users/subjects pictures and videos, with ranging complexities, to have the style transferred from the original image/video to that of a given template. In this context, the complexity of an image can be viewed as "how busy is an image?" For example, a picture of a single fruit would be defined as less complex than a photo of a city street with lots of pedestrians and vehicles. The images we will use to train the transformation network will be from the Microsoft COCO dataset as described in [2]. We will be hand selecting the images used as style images based on whether or not it is visually appealing and of a distinct, recognizable style. Given the largely subjective nature of evaluating the quality of a style transfer, for each image we will ask, in a survey, for users/subjects to rate the style transfer on a scale of 1 to 5 for the following criteria.
+   In the future qualitative experiments, we will give the users/subjects pictures and videos, with ranging complexities, 
+   to have the style transferred from the original image/video to that of a given template. In this context, the complexity of an image will be measured using the "energy" of an image
+   Given the largely subjective nature of evaluating the quality of a style transfer, for each image we will ask, in a survey, 
+   for users/subjects to rate the style transfer on a scale of 1 to 5 for the following criteria.
+
+
   <h5>For both image and video</h5>
   <ul>
     <li>How acceptable is the time taken for processing the style transfer
