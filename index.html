@@ -141,17 +141,24 @@ Tell us what obstacles you faced and how you addressed them. Justify any design
   <br>
   <br>
   <!-- Using different architecture proposed in  -->
-  The second idea is to use an architecture that is entirely different: Referenced in [2] I dont really understand this model, so someone else should talk about our approach to this
-  <br>
-  ############# FINISH ME #############
+The second idea is to use an architecture that is entirely different: Referenced in [8] this style can be broken into three main parts as viewed in the image below. The first is the VGG encoder / decoder structure. The encoder is the first several layers from the VGG19 network and the decoder is trained to reproduce the images that are passed through this encoder. The purpose of this structure is to help reproduce any style / content combination that might be produced by applying a transformation to the output of the encoder. The second part is the loss module that is essentially the same as the one described in [1]. This module computes both the style loss using the difference in Gram matrices between layers and the content loss using the difference in feature between the input and output images. Finally, the third part is the transformation module. This module takes is broken up into two networks that combine at the end of the transformation module to produce a transformation matrix. These two networks take in either the feature vector of the content or the feature vector of the style then runs them through a three-layer deep Convolutional Neural Network (CNN). Once it has done this it computes the covariance of these matrices and feeds them into a fully connected neural network. The outputs of the two networks are then multiplied together to produce the transformation matrix. This matrix is then applied to the feature vector of the content which the decoder will then transform into a final image. Training this module takes places after the decoder has been trained by adding a combination of the content and style losses to both of the networks that make up the transformation module. This whole network is extremely effective in speeding up the style transfer because it reduces the number of layers needed as well as removing the need to train a network for every style of image. It also speeds up the style transfer for videos or real-time style transfer by only needing to compute one half of the transformation matrix (the style half) once. After being computed the first time it can simply be stored further speeding up the approach. While this method has not been implemented by anyone else or confirmed by other research papers as it came out around a month ago, we will implement this method in order to hopefully achieve real time style transfer on the CPU.    <br>
+<br>
+<div style = "text-align: center">
+  <img style = "width: 50%; height:100%" src= "images/arbitrary_method.png">
+</div>
 
   <br>
   <h4>Part 2: GPU Improvements</h4>
 
   Contrary to real-time style transfer on a CPU, real-time style transfer on a GPU is more or less solved. As a result, The goal in this setting will be to reduce a sort of flickering effect that occurs as a result of temporal inconsistencies between frames. An example of this can be seen in the teaser figure in which one can basically identify the change of frame. The "video" comes as a result of applying the transformation network from [1] repeatedly on each frame. The main problem with this is there is no concept of consistency between frames. The can be solved by using adding a temporal loss with the style and content loss. This loss is one that enforces a penalty for changes between output frames. We will be implementing two models that attempt to use this idea of a temporal loss. The first is the model presented in [4] which passes the image at time t and t-1 into an image transformation network consecutively then uses the per pixel MSE(Mean-Squared-Error) of the image at time t and a function(tries to map the image from t-1 to t) of t-1. The model then calculates the style and content loss at time t in the same manner as [1], but now combines that spatial loss with this new temporal loss in order to update the network. The second model which we will implement is the one proposed in [5]. In this model, we use an encoder-decoder network rather than the conventional feed-forward convolutional neural network. The main difference between this network and the one in [4] is that the temporal loss will be computed on the features that are encoded by the encoder rather than on the generated image.
 
+  <br>
+  <br>
+  Another approach that we will take to attempt to solve this flickering problem should also be able to be solved by the method proposed in [8]. By using the covariance of the feature vectors produced by the encoder to use as input to the Convolutional Neural Networks (CNNs)  the proposed method is able to preserve content affinity while maintaining its quick runtimes. This ignores temporal consistencies in favor of attempting to transform features the same way without regard to where they are in an image. 
+
 
   <br>
+  ###FINISHHHHHHMEEEEEE###
   <br>
   <b>Note:</b> Across all proposed models above, there will be the general goal to sacriface small losses in performance by using a smaller model in order to increase fps. Additionally, the models specified in the GPU portion will also be tested for cpu performance but not the other way around.
 
