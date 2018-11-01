@@ -161,7 +161,7 @@ Tell us what obstacles you faced and how you addressed them. Justify any design
 <!-- Experiments and Results -->
 <h2><u>Current Experiments and Results</u></h3>
   For this midterm update, we decided to focus on implementing and testing the current approach detailed in [1]. We trained a neural network from scratch
-  with this approach on the following images:
+  with this approach on the following style images, using the Microsoft COCO dataset as described in [2]:
   <br>
   <br>
 
@@ -220,7 +220,7 @@ Tell us what obstacles you faced and how you addressed them. Justify any design
   <br>
   <h3>Experimentation</h3>
   <h4>Quantitative Experimentation</h4>
-  The goals that we have set above will be tested in several different ways:
+  The goals that we have set in the approach section above will be tested in several different ways with quantitative results:
   <h5>For both image and video</h5>
   <ul>
     <li>Time trials for training on style images
@@ -245,7 +245,12 @@ Tell us what obstacles you faced and how you addressed them. Justify any design
 
   <br>
   <h4>Qualitative Experimentation</h4>
-   In the future experiments, we will give the users/subjects pictures and videos, with ranging complexities, to have the style transferred from the original image/video to that of a given template. In this context, the complexity of an image can be viewed as "how busy is an image?" For example, a picture of a single fruit would be defined as less complex than a photo of a city street with lots of pedestrians and vehicles. The images we will use to train the transformation network will be from the Microsoft COCO dataset as described in [2]. We will be hand selecting the images used as style images based on whether or not it is visually appealing and of a distinct, recognizable style. Given the largely subjective nature of evaluating the quality of a style transfer, for each image we will ask, in a survey, for users/subjects to rate the style transfer on a scale of 1 to 5 for the following criteria.
+   In the future qualitative experiments, we will give the users/subjects pictures and videos, with ranging complexities, 
+   to have the style transferred from the original image/video to that of a given template. In this context, the complexity of an image will be measured using the "energy" of an image
+   Given the largely subjective nature of evaluating the quality of a style transfer, for each image we will ask, in a survey, 
+   for users/subjects to rate the style transfer on a scale of 1 to 5 for the following criteria.
+
+
   <h5>For both image and video</h5>
   <ul>
     <li>How acceptable is the time taken for processing the style transfer
