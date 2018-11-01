@@ -191,7 +191,10 @@ The second idea is to use an architecture that is entirely different: Referenced
   <br>
   <br>
 
-  ############ INSERT STYLE IMAGES HERE ############
+  <div style = "text-align: center">
+    <img style = "width: 50%; height:100%" src= "images/lionStyle.jpg">
+    <img style = "width: 37%; height:100%" src= "images/stainedStyle.jpg">
+  </div>
 
   <br>
   <br>
@@ -201,12 +204,30 @@ The second idea is to use an architecture that is entirely different: Referenced
   <br>
   <br>
 
-  ############ INSERT CONTENT AND STYLED IMAGES HERE ############
+  <div style = "text-align: center">
+    <img style = "width: 45%; height:100%" src= "images/chicago.jpg">
+    <img style = "width: 45%; height:100%" src= "images/stata.jpg">
+  </div>
+  <br><br>
+
+  <div style = "text-align: center">
+    <img style = "width: 45%; height:100%" src= "images/chicagoLion.jpg">
+    <img style = "width: 45%; height:100%" src= "images/chicagoStained.jpg">
+  </div>
+  <br><br>
+  <div style = "text-align: center">
+    <img style = "width: 45%; height:100%" src= "images/stataLion.jpg">
+    <img style = "width: 45%; height:100%" src= "images/stataStained.jpg">
+  </div>
 
   <br>
   <br>
 
-  The results for running the neural net on several resolutions are also important, and are shown below. These results were run on a CPU rather than a GPU, as we will test GPU performance on videos directly against our improved method once completed.
+  As you can see, the results are very good, both keeping the style of the style image, and the content of the original image. This was expected expected for this proven method.
+
+  <br>
+  <br>
+  However, stylization is not the result we are most interested. The timing results for running the neural net on several resolutions are very important for video transfer, and are shown below. These results were run on a CPU rather than a GPU, as we will test GPU performance on videos directly against our improved method once completed.
   The images are static images, and can be extrapolated to assume that video performance would be based on the static conversion times.
 
   <div style = "text-align: center">
@@ -281,9 +302,17 @@ The second idea is to use an architecture that is entirely different: Referenced
   </ul>
   Through these experiments we hope to learn the strengths and weakness of the different techniques and hopefully determine which is best in general for transferring a style onto an image or video. Overall, this experiment will be considered a success if we are able to implement an application that is able to perform real-time style transfer for videos and receive relatively good reviews from our users (an average of 3.5 or above in each section of the survey).
 <br>
+<br>
+
+<h2><u>Conclusion</u></h2>
+
+Obviously we have much work to do in the upcoming weeks, but we are optimistic that we will be able to succeed in creating stunning visual art that is both efficient and beautiful using the above approach
+and validate those results with the described experimentation.
 
 
-<br><br>
+<br><br><br>
+
+<hr>
 
 Relevant papers and articles:
 <br>
