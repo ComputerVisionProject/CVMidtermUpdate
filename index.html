@@ -144,7 +144,11 @@ Tell us what obstacles you faced and how you addressed them. Justify any design
 The second idea is to use an architecture that is entirely different: Referenced in [8] this style can be broken into three main parts as viewed in the image below. The first is the VGG encoder / decoder structure. The encoder is the first several layers from the VGG19 network and the decoder is trained to reproduce the images that are passed through this encoder. The purpose of this structure is to help reproduce any style / content combination that might be produced by applying a transformation to the output of the encoder. The second part is the loss module that is essentially the same as the one described in [1]. This module computes both the style loss using the difference in Gram matrices between layers and the content loss using the difference in feature between the input and output images. Finally, the third part is the transformation module. This module takes is broken up into two networks that combine at the end of the transformation module to produce a transformation matrix. These two networks take in either the feature vector of the content or the feature vector of the style then runs them through a three-layer deep Convolutional Neural Network (CNN). Once it has done this it computes the covariance of these matrices and feeds them into a fully connected neural network. The outputs of the two networks are then multiplied together to produce the transformation matrix. This matrix is then applied to the feature vector of the content which the decoder will then transform into a final image. Training this module takes places after the decoder has been trained by adding a combination of the content and style losses to both of the networks that make up the transformation module. This whole network is extremely effective in speeding up the style transfer because it reduces the number of layers needed as well as removing the need to train a network for every style of image. It also speeds up the style transfer for videos or real-time style transfer by only needing to compute one half of the transformation matrix (the style half) once. After being computed the first time it can simply be stored further speeding up the approach. While this method has not been implemented by anyone else or confirmed by other research papers as it came out around a month ago, we will implement this method in order to hopefully achieve real time style transfer on the CPU.    <br>
 <br>
 <div style = "text-align: center">
-  <img style = "width: 50%; height:100%" src= "images/arbitrary_method.png">
+  <figure>
+      <img style = "width: 50%; height:100%" src= "images/arbitrary_method.png">
+      <figcaption><b>Li et al. Architecture</b></figcaption>
+    </figure>
+  
 </div>
 
   <br>
@@ -154,7 +158,15 @@ The second idea is to use an architecture that is entirely different: Referenced
   
   <br>
   <div style = "text-align: center">
-    <img style = "width: 50%; height:100%" src= "images/Huang_method.png">
+    <figure>
+      <img style = "width: 50%; height:100%" src= "images/Huang_method.png">
+      <figcaption><b>Huang et al. Architecture</b></figcaption>
+    </figure>
+    <figure>
+      <img style = "width: 50%; height:100%" src= "images/GaoModel.png">
+      <figcaption><b>Gao et al. Architecture</b></figcaption>
+    </figure>
+    
   </div>
   <br>
   
